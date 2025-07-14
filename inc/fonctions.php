@@ -77,3 +77,23 @@ function getUserById($id)
     $result = mysqli_query(dbconnect(), $sql);
     return mysqli_fetch_assoc( $result );
 }
+
+function getInfoObjetbyId($id)
+{
+    $sql = "SELECT nom_objet, nom_categorie FROM v_objet_emprunt WHERE id_objet =%d";
+    $sql = sprintf($sql , $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    return mysqli_fetch_assoc( $result );
+}   
+
+function getAllEmpruntbyId($id)
+{
+    $sql = "SELECT nom_emprunt, date_emprunt, date_retour FROM v_objet_emprunt WHERE id_objet =%d ORDER BY date_emprunt DESC";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    $emprunt = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $emprunt[] = $row;
+    }
+    return $emprunt;
+}

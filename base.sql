@@ -1,5 +1,5 @@
 CREATE DATABASE final_S2;
-USE db_s2_ETU003910;
+USE final_S2;
 
 CREATE TABLE exm_membre (
     id_membre INT AUTO_INCREMENT PRIMARY KEY,
@@ -116,6 +116,8 @@ INSERT INTO exm_emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES
 (7, 4, '2025-07-09', '2025-07-17'),          
 (21, 1, '2025-07-10', '2025-07-17'); 
 
+INSERT INTO exm_emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES
+(1, 3, '2025-07-09', '2025-07-16');
 
 CREATE or REPLACE VIEW v_exm_objet_membre as 
 SELECT 
@@ -140,4 +142,7 @@ FROM v_exm_objet_membre
 LEFT JOIN exm_emprunt ON exm_emprunt.id_objet = v_exm_objet_membre.id_objet
 LEFT JOIN exm_categorie_objet ON exm_categorie_objet.id_categorie = v_exm_objet_membre.id_categorie
 LEFT JOIN exm_membre on exm_membre.id_membre = exm_emprunt.id_membre;
+
+
+
     
