@@ -102,25 +102,51 @@ function getImage($idObj)
     $sql = "SELECT nom_image FROM exm_images_objet WHERE id_objet = %d ORDER BY id_image ASC LIMIT 1";
     $sql = sprintf($sql, $idObj);
     $result = mysqli_query(dbconnect(), $sql);
-    
+
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         return $row['nom_image'];
     }
-    
-    return null; 
+
+    return null;
 }
 
 function getAllImages($idObj)
 {
-    $sql = "SELECT nom_image FROM exm_images_objet WHERE id_objet = %d ORDER BY id_image ASC";
+    $sql = "SELECT nom_image , id_image FROM exm_images_objet WHERE id_objet = %d ORDER BY id_image ASC";
     $sql = sprintf($sql, $idObj);
     $result = mysqli_query(dbconnect(), $sql);
     $images = array();
-    
+
     while ($row = mysqli_fetch_assoc($result)) {
-        $images[] = $row['nom_image'];
+        $images[] = $row;
     }
-    
+
     return $images;
+}
+function getInfoObjetbyId($id)
+{
+    $sql = "SELECT nom_objet, nom_categorie ,id_membre FROM v_objet_emprunt WHERE id_objet =%d";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    return mysqli_fetch_assoc($result);
+}
+
+function getAllEmpruntbyId($id)
+{
+    $sql = "SELECT nom_emprunt, date_emprunt, date_retour FROM v_objet_emprunt WHERE id_objet =%d ORDER BY date_emprunt DESC";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    $emprunt = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $emprunt[] = $row;
+    }
+    return $emprunt;
+}
+function deleteImage($id)
+{
+    $sql = "DELETE FROM exm_images_objet WHERE id_image = %d";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+
 }

@@ -72,34 +72,38 @@ $categories = getCategories();
         <div class="row">
             <?php foreach ($objets as $objet) { ?>
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
-<<<<<<< HEAD
-                    <article class="card border-0 shadow-sm" style="border-radius: 12px;">
-                        <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top" alt="Property Image"
-                            style="border-radius: 12px 12px 0 0; height: 200px; object-fit: cover;">
-=======
-                    <a href="fiche.php?id=<?= $objet['id_objet'] ?>"><article class="card border-0 shadow-sm" style="border-radius: 12px;">
->>>>>>> origin/Sanda
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
-                            <p class="card-text text-muted">
-                                <?php if (!empty($objet['date_emprunt'])) { ?>
-                                <p><b>Emprunter : </b><?= $objet['nom'] ?></p>
-                                Emprunt : <?php echo $objet['date_emprunt']; ?>
-                                <br>
-                            <?php } ?>
-                            <?php if (!empty($objet['date_retour'])) { ?>
-                                Retour : <?php echo $objet['date_retour']; ?>
-                            <?php } ?>
-                            <?php if (empty($objet['date_emprunt']) && empty($objet['date_retour'])) { ?>
-                                Disponible
-                            <?php } ?>
-                            </p>
-                            <p><b>Categorie :</b> <?= $objet['nom_categorie'] ?> </p>
-                            <p><b>Proprietaire : </b><?= $objet['nom'] ?></p>
+                    <article class="card shadow-sm" style="">
+                        <?php if (getImage($objet['id_objet']) != null) { ?>
+                            <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top"
+                                alt="" style="height: 200px; object-fit: cover;">
+                        <?php } else { ?>
+                            <img src="../assets/images/default.jpg" class="card-img-top"
+                                alt="" style="height: 200px; object-fit: cover;">
+                        <?php } ?>
 
-                        </div>
-                    </article>
-                    </a>
+                        <a href="fiche.php?id=<?= $objet['id_objet'] ?>">
+                            <article class="card border-0 shadow-sm" style="">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
+                                    <p class="card-text text-muted">
+                                        <?php if (!empty($objet['date_emprunt'])) { ?>
+                                        <p><b>Emprunter : </b><?= $objet['nom'] ?></p>
+                                        Emprunt : <?php echo $objet['date_emprunt']; ?>
+                                        <br>
+                                    <?php } ?>
+                                    <?php if (!empty($objet['date_retour'])) { ?>
+                                        Retour : <?php echo $objet['date_retour']; ?>
+                                    <?php } ?>
+                                    <?php if (empty($objet['date_emprunt']) && empty($objet['date_retour'])) { ?>
+                                        Disponible
+                                    <?php } ?>
+                                    </p>
+                                    <p><b>Categorie :</b> <?= $objet['nom_categorie'] ?> </p>
+                                    <p><b>Proprietaire : </b><?= $objet['nom'] ?></p>
+
+                                </div>
+                            </article>
+                        </a>
                 </section>
             <?php } ?>
         </div>
