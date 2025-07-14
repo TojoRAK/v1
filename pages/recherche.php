@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../inc/fonctions.php");
+$categories = getCategories();
 $objets = getResearchedObjets(
     isset($_GET['categorie']) ? $_GET['categorie'] : '',
     isset($_GET['nom']) ? $_GET['nom'] : '',
