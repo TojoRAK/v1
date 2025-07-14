@@ -72,9 +72,13 @@ $categories = getCategories();
         <div class="row">
             <?php foreach ($objets as $objet) { ?>
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
+<<<<<<< HEAD
                     <article class="card border-0 shadow-sm" style="border-radius: 12px;">
                         <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top" alt="Property Image"
                             style="border-radius: 12px 12px 0 0; height: 200px; object-fit: cover;">
+=======
+                    <a href="fiche.php?id=<?= $objet['id_objet'] ?>"><article class="card border-0 shadow-sm" style="border-radius: 12px;">
+>>>>>>> origin/Sanda
                         <div class="card-body">
                             <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
                             <p class="card-text text-muted">
@@ -95,6 +99,7 @@ $categories = getCategories();
 
                         </div>
                     </article>
+                    </a>
                 </section>
             <?php } ?>
         </div>
