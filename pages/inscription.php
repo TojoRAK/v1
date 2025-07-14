@@ -9,6 +9,11 @@
 </head>
 
 <body>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <a class="navbar-brand" href="accueil.php">
+            Final S2
+        </a>
+    </nav>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">

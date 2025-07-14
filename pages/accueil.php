@@ -93,8 +93,7 @@ $categories = getCategories();
         <div class="row">
             <?php foreach ($objets as $objet) { ?>
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
-<<<<<<< HEAD
-                    <article class="card shadow-sm" style="">
+                    <article class="card shadow-sm card-hover" style="">
                         <?php if (getImage($objet['id_objet']) != null) { ?>
                             <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top"
                                 alt="" style="height: 200px; object-fit: cover;">
@@ -126,31 +125,6 @@ $categories = getCategories();
                                 </div>
                             </article>
                         </a>
-=======
-                    <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
-                        <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
-                            <p class="card-text text-muted">
-                                <?php if (!empty($objet['date_emprunt'])) { ?>
-                                <p><b>Emprunter : </b><?= $objet['nom_emprunt'] ?></p>
-                                 Emprunt : <?php echo $objet['date_emprunt']; ?>
-                                    <br>
-                                <?php } ?>
-                                <?php if (!empty($objet['date_retour'])) { ?>
-                                 Retour : <?php echo $objet['date_retour']; ?>
-                                <?php } ?>
-                                <?php if (empty($objet['date_emprunt']) && empty($objet['date_retour'])) { ?>
-                                Disponible
-                                <?php } ?>
-                            </p>
-                            <p><b>Categorie :</b> <?= $objet['nom_categorie'] ?> </p>
-                            <p><b>Proprietaire : </b><?= $objet['nom'] ?></p>
-                            
-                        </div>
-                    </article>
-                    </a>
->>>>>>> origin/Sanda
                 </section>
             <?php } ?>
         </div>

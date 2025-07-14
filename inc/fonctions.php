@@ -126,13 +126,8 @@ function getAllImages($idObj)
 }
 function getInfoObjetbyId($id)
 {
-<<<<<<< HEAD
     $sql = "SELECT nom_objet, nom_categorie ,id_membre FROM v_objet_emprunt WHERE id_objet =%d";
     $sql = sprintf($sql, $id);
-=======
-    $sql = "SELECT nom_objet, nom_categorie ,id_membre ,nom FROM v_objet_emprunt WHERE id_objet =%d";
-    $sql = sprintf($sql , $id);
->>>>>>> origin/Sanda
     $result = mysqli_query(dbconnect(), $sql);
     return mysqli_fetch_assoc($result);
 }
@@ -148,14 +143,13 @@ function getAllEmpruntbyId($id)
     }
     return $emprunt;
 }
-<<<<<<< HEAD
 function deleteImage($id)
 {
     $sql = "DELETE FROM exm_images_objet WHERE id_image = %d";
     $sql = sprintf($sql, $id);
     $result = mysqli_query(dbconnect(), $sql);
+}
 
-=======
 
 function getResearchedObjets($categorie, $nom, $disponible, $offset)
 {
@@ -200,5 +194,4 @@ function getObjetmembre($id)
         $objet[] = $row;
     }
     return $objet;
->>>>>>> origin/Sanda
 }
