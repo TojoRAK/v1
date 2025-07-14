@@ -20,12 +20,12 @@ $categories = getCategories();
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <style>
-.card-hover:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    transform: translateY(-6px) scale(1.03);
-    transition: all 0.2s;
-}
-</style>
+        .card-hover:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            transform: translateY(-6px) scale(1.03);
+            transition: all 0.2s;
+        }
+    </style>
 </head>
 
 <body>
@@ -55,16 +55,17 @@ $categories = getCategories();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= isset($_GET['profil']) ? 'active' : '' ?>" 
-                           href="profil.php?id=<?= $_SESSION['user'] ?>">
-                        Mon Profil
+                        <a class="nav-link <?= isset($_GET['profil']) ? 'active' : '' ?>"
+                            href="profil.php?id=<?= $_SESSION['user'] ?>">
+                            Mon Profil
                         </a>
                     </li>
                 </ul>
 
                 <form class="d-flex align-items-center gap-2" action="recherche.php" method="get">
                     <label for="nom" class="form-label mb-0 me-2">Nom:</label>
-                    <input type="text" name="nom" id="nom" class="form-control me-2" placeholder="Rechercher un objet" style="width: 180px;">
+                    <input type="text" name="nom" id="nom" class="form-control me-2" placeholder="Rechercher un objet"
+                        style="width: 180px;">
                     <select name="categorie" class="form-select me-2" style="width: 180px;">
                         <option value="">Tous les categories</option>
                         <?php foreach ($categories as $categ) { ?>
@@ -95,11 +96,11 @@ $categories = getCategories();
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
                     <article class="card shadow-sm card-hover" style="">
                         <?php if (getImage($objet['id_objet']) != null) { ?>
-                            <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top"
-                                alt="" style="height: 200px; object-fit: cover;">
+                            <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top" alt=""
+                                style="height: 200px; object-fit: cover;">
                         <?php } else { ?>
-                            <img src="../assets/images/default.jpg" class="card-img-top"
-                                alt="" style="height: 200px; object-fit: cover;">
+                            <img src="../assets/images/default.jpg" class="card-img-top" alt=""
+                                style="height: 200px; object-fit: cover;">
                         <?php } ?>
 
                         <a href="fiche.php?id=<?= $objet['id_objet'] ?>" class="text-decoration-none">
@@ -108,15 +109,15 @@ $categories = getCategories();
                                     <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
                                     <p class="card-text text-muted">
                                         <?php if (!empty($objet['date_emprunt'])) { ?>
-                                        <p><b>Emprunter : </b><?= $objet['nom'] ?></p>
                                         Emprunt : <?php echo $objet['date_emprunt']; ?>
                                         <br>
                                     <?php } ?>
                                     <?php if (!empty($objet['date_retour'])) { ?>
-                                        Retour : <?php echo $objet['date_retour']; ?>
+                                        Disponible le : <?php echo $objet['date_retour']; ?>
                                     <?php } ?>
                                     <?php if (empty($objet['date_emprunt']) && empty($objet['date_retour'])) { ?>
-                                        Disponible
+                                        <p>Disponible</p>
+                                        <a href="emprunter.php?id=<?= $objet['id_objet'] ?>" class="btn btn-danger text-decoration-none"> Emprunter</a>
                                     <?php } ?>
                                     </p>
                                     <p><b>Categorie :</b> <?= $objet['nom_categorie'] ?> </p>

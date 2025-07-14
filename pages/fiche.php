@@ -81,10 +81,9 @@ ini_set('display_errors', '1');
                                             <img src="../uploads/pubs/<?= $image['nom_image'] ?>" class="img-fluid rounded"
                                                 alt="Image de l'objet" style="height: 200px; width: 100%; object-fit: cover;">
                                             <?php if ($_SESSION['user'] == $info['id_membre']) { ?>
-                                                <a href="delete.php?id=<?= $image ?>&idObj=<?= $_GET['id'] ?>"
-                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?')">
-                                                    <i class="fas fa-trash"></i> ×
+                                                <a href="delete.php?id=<?= $image['id_image'] ?>&idObj=<?= $_GET['id'] ?>"
+                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2">
+                                                    ×
                                                 </a>
                                             <?php } ?>
                                         </div>

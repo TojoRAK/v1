@@ -25,12 +25,12 @@ foreach ($objets as $objet) {
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <style>
-.card-hover:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    transform: translateY(-6px) scale(1.03);
-    transition: all 0.2s;
-}
-</style>
+        .card-hover:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            transform: translateY(-6px) scale(1.03);
+            transition: all 0.2s;
+        }
+    </style>
 </head>
 
 <body>
@@ -91,12 +91,23 @@ foreach ($objets as $objet) {
         </div>
     </nav>
     <h1>Profil de : <?= $profil['nom'] ?></h1>
+    <hr>
+    <h3 >Date de Naissance : <span class="text-danger"><?= $profil['date_naissance'] ?></span></h3>
+    <h3 >Ville : <span class="text-danger"><?= $profil['ville'] ?> </span></h3>
+    <?php if ($profil['genre'] == 'M') { ?>
+        <h3 >Homme</h3>
+    <?php } else { ?>
+        <h3 class="text-danger">Femme</h3>
+    <?php } ?>
+        <hr>
     <?php if ($_GET['id'] == $_SESSION['user']) { ?>
         <h3>Mes objets :</h3>
     <?php } else { ?>
-        <h3>Objets de <?= $profil['nom'] ?> :</h3>
+        <h4>Objets de <?= $profil['nom'] ?> :</h3>
     <?php } ?>
+
     <?php foreach ($objetsParCategorie as $catId => $objetsCat) { ?>
+        <hr>
         <h4>
             <?php
             echo isset($objetsCat[0]['nom_categorie']) ? $objetsCat[0]['nom_categorie'] : 'Sans catégorie';
@@ -105,24 +116,24 @@ foreach ($objets as $objet) {
         <ul class="row">
             <?php foreach ($objetsCat as $objet) { ?>
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
-                <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
-                    <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
-                        <?php if (getImage($objet['id_objet']) != null) { ?>
-                            <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top" alt=""
-                                style="height: 200px; object-fit: cover;">
-                        <?php } else { ?>
-                            <img src="../assets/images/default.jpg" class="card-img-top" alt=""
-                                style="height: 200px; object-fit: cover;">
-                        <?php } ?>
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
+                    <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
+                        <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
+                            <?php if (getImage($objet['id_objet']) != null) { ?>
+                                <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top" alt=""
+                                    style="height: 200px; object-fit: cover;">
+                            <?php } else { ?>
+                                <img src="../assets/images/default.jpg" class="card-img-top" alt=""
+                                    style="height: 200px; object-fit: cover;">
+                            <?php } ?>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
 
 
-                            </p>
-                        </div>
-                    </article>
-                </a>
-            </section>
+                                </p>
+                            </div>
+                        </article>
+                    </a>
+                </section>
             <?php } ?>
         </ul>
     <?php } ?>

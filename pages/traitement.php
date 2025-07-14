@@ -39,11 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fichier'])) {
             die("Échec du déplacement du fichier " . ($i + 1));
         }
     }
-
-    if (!empty($uploadedFiles)) {
-        addObjet($_SESSION["user"], $_POST['categorie'], $_POST['nom'], $uploadedFiles);
-        header("Location: ../pages/accueil.php");
+    if (!empty($uploadedFiles) && isset($_POST['id_objet'])) {
+        addImage($_POST['id_objet'], $uploadedFiles);
+        header("Location: fiche.php?id=" . $_POST['id_objet']);
         exit();
+    }
+    if (!empty($uploadedFiles) && isset($_POST['nom']) && isset($_POST['categorie'])) {
+        addObjet($_SESSION["user"], $_POST['categorie'], $_POST['nom'], $uploadedFiles);
+        header("Location: accueil.php");
+        exit();
+    } else {
+        echo "Erreur : données manquantes";
     }
 } else {
     echo "Aucun fichier reçu.";

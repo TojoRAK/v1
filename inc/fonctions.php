@@ -185,4 +185,20 @@ function getObjetmembre($id)
         $objet[] = $row;
     }
     return $objet;
-}   
+}
+function addImage($idObj, $images)
+{
+    foreach ($images as $name) {
+        $sql = "INSERT INTO exm_images_objet (id_objet, nom_image) VALUES (%d, '%s')";
+        $sql = sprintf($sql, $idObj, $name);
+        $result = mysqli_query(dbconnect(), $sql);
+    }
+}
+function addEmprunt($idObj, $idMembre, $dureeJours)
+{
+    $sql = "INSERT INTO exm_emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES (%d, %d, NOW(), DATE_ADD(NOW(), INTERVAL %d DAY))";
+    $sql = sprintf($sql, $idObj, $idMembre, $dureeJours);
+    $result = mysqli_query(dbconnect(), $sql);
+    
+    return $result;
+}
