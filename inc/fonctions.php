@@ -154,27 +154,18 @@ function deleteImage($id)
 function getResearchedObjets($categorie, $nom, $disponible, $offset)
 {
     $sql = "SELECT * FROM v_objet_emprunt WHERE 1=1";
-    $params = [];
 
     if (!empty($categorie)) {
-        $sql .= " AND id_categorie = %d";
-        $params[] = $categorie;
+        $sql .= " AND id_categorie = " . intval($categorie);
     }
     if (!empty($nom)) {
-        $sql .= " AND nom_objet LIKE '%%%s%%'";
-        $params[] = $nom;
+        $sql .= " AND nom_objet LIKE '%" . mysqli_real_escape_string(dbconnect(), $nom) . "%'";
     }
     if ($disponible !== null && $disponible !== '') {
         $sql .= " AND date_emprunt IS NULL AND date_retour IS NULL";
-        $params[] = $disponible;
     }
 
-    if (count($params) > 0) {
-        $sql = sprintf($sql, ...$params);
-    }
-
-    $sql .= " ORDER BY nom_objet ASC LIMIT %d, 20";
-    $sql = sprintf($sql, $offset);
+    $sql .= " ORDER BY nom_objet ASC LIMIT " . intval($offset) . ", 20";
 
     $result = mysqli_query(dbconnect(), $sql);
     $objets = array();
