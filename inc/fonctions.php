@@ -126,7 +126,7 @@ function getAllImages($idObj)
 }
 function getInfoObjetbyId($id)
 {
-    $sql = "SELECT nom_objet, nom_categorie ,id_membre FROM v_objet_emprunt WHERE id_objet =%d";
+    $sql = "SELECT nom_objet, nom_categorie ,id_membre,nom FROM v_objet_emprunt WHERE id_objet =%d";
     $sql = sprintf($sql, $id);
     $result = mysqli_query(dbconnect(), $sql);
     return mysqli_fetch_assoc($result);

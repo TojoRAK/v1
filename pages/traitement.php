@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fichier'])) {
 
     for ($i = 0; $i < count($files['name']); $i++) {
         if ($files['error'][$i] != UPLOAD_ERR_OK) {
-            die('Erreur lors de l\'upload du fichier ' . ($i + 1) . ' : ' . $files['error'][$i]);
+            die('Erreur lor<i class="fas fa-info-circle"></i>s de l\'upload du fichier ' . ($i + 1) . ' : ' . $files['error'][$i]);
         }
 
         if ($files['size'][$i] > $maxSize) {

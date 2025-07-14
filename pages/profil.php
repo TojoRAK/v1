@@ -96,10 +96,15 @@ foreach ($objets as $objet) {
     <?php } else { ?>
         <h3>Objets de <?= $profil['nom'] ?> :</h3>
     <?php } ?>
-<<<<<<< HEAD
-    <ul class="row">
-        <?php foreach ($objets as $objet) { ?>
-            <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
+    <?php foreach ($objetsParCategorie as $catId => $objetsCat) { ?>
+        <h4>
+            <?php
+            echo isset($objetsCat[0]['nom_categorie']) ? $objetsCat[0]['nom_categorie'] : 'Sans catégorie';
+            ?>
+        </h4>
+        <ul class="row">
+            <?php foreach ($objetsCat as $objet) { ?>
+                <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
                 <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
                     <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
                         <?php if (getImage($objet['id_objet']) != null) { ?>
@@ -118,30 +123,9 @@ foreach ($objets as $objet) {
                     </article>
                 </a>
             </section>
-        <?php } ?>
-    </ul>
-=======
-    <?php foreach ($objetsParCategorie as $catId => $objetsCat) { ?>
-        <h4>
-            <?php
-            echo isset($objetsCat[0]['nom_categorie']) ? $objetsCat[0]['nom_categorie'] : 'Sans catégorie';
-            ?>
-        </h4>
-        <ul class="row">
-            <?php foreach ($objetsCat as $objet) { ?>
-                <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
-                    <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
-                        <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold"><?= $objet['nom_objet']; ?></h5>
-                            </div>
-                        </article>
-                    </a>
-                </section>
             <?php } ?>
         </ul>
     <?php } ?>
->>>>>>> origin/Sanda
 </body>
 
 </html>

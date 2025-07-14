@@ -63,6 +63,8 @@ ini_set('display_errors', '1');
     </nav>
 
     <div class="container mt-4">
+        <h2>Proprietaire : <a href="profil.php?id=<?= $info['id_membre'] ?>"><?= $info['nom'] ?></a></h2>
+
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
