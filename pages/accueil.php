@@ -23,7 +23,7 @@ $categories = getCategories();
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container">
             <a class="navbar-brand" href="accueil.php">
             Final S2
@@ -59,16 +59,16 @@ $categories = getCategories();
                             </option>
                         <?php } ?>
                     </select>
-                    <button class="btn btn-outline-light" type="submit">
+                    <button class="btn btn-success" type="submit">
                      Filtrer
                     </button>
                 </form>
-                <a href="deco.php" class="btn btn-danger">Deconnexion</a>
+                <a href="deco.php" class="btn btn-primary">Deconnexion</a>
             </div>
         </div>
     </nav>
     <div class="container">
-        <h3>Bienvenue : <?= getUserById($_SESSION['user'])['nom'] ?></h3>
+        <h3 class="mt-4">Bienvenue : <span class="text-danger"><?= getUserById($_SESSION['user'])['nom'] ?></span></h3>
         <div class="row">
             <?php foreach ($objets as $objet) { ?>
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
