@@ -61,6 +61,7 @@ ini_set('display_errors', '1');
             </div>
         </div>
     </nav>
+<<<<<<< HEAD
 
     <div class="container mt-4">
         <div class="row">
@@ -167,6 +168,18 @@ ini_set('display_errors', '1');
             </div>
         </div>
     </div>
+=======
+    <h1><?= $info['nom_objet'] ?></h1>
+    <h2>Proprietaire : <a href="profil.php?id=<?= $info['id_membre'] ?>"><?= $info['nom'] ?></a></h2>
+    <p>Catégorie: <?= $info['nom_categorie'] ?></p>
+    <h2>Historique d'emprunt:</h2>
+    <ul>
+        <?php foreach($infoemprunt as $inf){ ?>
+            <li>Emprunté par: <?= $inf['nom_emprunt'] ?>, Date d'emprunt: <?= $inf['date_emprunt'] ?>, Date de retour: <?= $inf['date_retour'] ?></li>
+        <?php } ?>
+    </ul>
+    <a href="accueil.php">Retour à la liste des objets</a>   
+>>>>>>> origin/Sanda
 </body>
 
 </html>

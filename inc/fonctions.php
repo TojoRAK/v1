@@ -126,8 +126,13 @@ function getAllImages($idObj)
 }
 function getInfoObjetbyId($id)
 {
+<<<<<<< HEAD
     $sql = "SELECT nom_objet, nom_categorie ,id_membre FROM v_objet_emprunt WHERE id_objet =%d";
     $sql = sprintf($sql, $id);
+=======
+    $sql = "SELECT nom_objet, nom_categorie ,id_membre ,nom FROM v_objet_emprunt WHERE id_objet =%d";
+    $sql = sprintf($sql , $id);
+>>>>>>> origin/Sanda
     $result = mysqli_query(dbconnect(), $sql);
     return mysqli_fetch_assoc($result);
 }
@@ -143,10 +148,57 @@ function getAllEmpruntbyId($id)
     }
     return $emprunt;
 }
+<<<<<<< HEAD
 function deleteImage($id)
 {
     $sql = "DELETE FROM exm_images_objet WHERE id_image = %d";
     $sql = sprintf($sql, $id);
     $result = mysqli_query(dbconnect(), $sql);
 
+=======
+
+function getResearchedObjets($categorie, $nom, $disponible, $offset)
+{
+    $sql = "SELECT * FROM v_objet_emprunt WHERE 1=1";
+    $params = [];
+
+    if (!empty($categorie)) {
+        $sql .= " AND id_categorie = %d";
+        $params[] = $categorie;
+    }
+    if (!empty($nom)) {
+        $sql .= " AND nom_objet LIKE '%%%s%%'";
+        $params[] = $nom;
+    }
+    if ($disponible !== null && $disponible !== '') {
+        $sql .= " AND date_emprunt IS NULL AND date_retour IS NULL";
+        $params[] = $disponible;
+    }
+
+    if (count($params) > 0) {
+        $sql = sprintf($sql, ...$params);
+    }
+
+    $sql .= " ORDER BY nom_objet ASC LIMIT %d, 20";
+    $sql = sprintf($sql, $offset);
+
+    $result = mysqli_query(dbconnect(), $sql);
+    $objets = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $objets[] = $row;
+    }
+    return $objets;
+}
+
+function getObjetmembre($id)
+{
+    $sql = "SELECT * FROM exm_objet WHERE id_membre = %d ORDER BY nom_objet ASC ";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    $objet = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $objet[] = $row;
+    }
+    return $objet;
+>>>>>>> origin/Sanda
 }
