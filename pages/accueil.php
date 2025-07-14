@@ -102,7 +102,7 @@ $categories = getCategories();
                                 alt="" style="height: 200px; object-fit: cover;">
                         <?php } ?>
 
-                        <a href="fiche.php?id=<?= $objet['id_objet'] ?>">
+                        <a href="fiche.php?id=<?= $objet['id_objet'] ?>" class="text-decoration-none">
                             <article class="card border-0 shadow-sm" style="">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
