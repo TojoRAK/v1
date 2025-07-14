@@ -1,35 +1,22 @@
 <?php
 session_start();
 include("../inc/fonctions.php");
-$objets = getObjets();
-if (isset($_GET['moi'])) {
-    $objets = getObjetsEmprunt($_SESSION['user']);
-}
-if (isset($_GET['categorie'])) {
-    $objets = getObjetsCat($_GET['categorie']);
-}
-$categories = getCategories();
+$profil = getUserById($_GET['id']);
+$objets = getObjetmembre($_GET['id']);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Document</title>
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <style>
-.card-hover:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    transform: translateY(-6px) scale(1.03);
-    transition: all 0.2s;
-}
-</style>
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container">
             <a class="navbar-brand" href="accueil.php">
@@ -44,7 +31,7 @@ $categories = getCategories();
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link <?= !isset($_GET['moi']) && !isset($_GET['categorie']) ? 'active' : '' ?>" 
+                        <a class="nav-link" 
                            href="accueil.php">
                             Tous les objets
                         </a>
@@ -88,39 +75,28 @@ $categories = getCategories();
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h3 class="mt-4">Bienvenue : <span class="text-danger"><?= getUserById($_SESSION['user'])['nom'] ?></span></h3>
-        <div class="row">
-            <?php foreach ($objets as $objet) { ?>
-                <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
-                    <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
-                        <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
+    <h1>Profil de : <?= $profil['nom'] ?></h1>
+    <?php if ($_GET['id'] == $_SESSION['user']) { ?>
+        <h3>Mes objets :</h3>
+    <?php } else { ?>
+        <h3>Objets de <?= $profil['nom'] ?> :</h3>
+    <?php } ?>
+    <ul class="row">
+        <?php foreach ($objets as $objet) { ?>
+            <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
+                <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
+                    <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
                         <div class="card-body">
                             <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
-                            <p class="card-text text-muted">
-                                <?php if (!empty($objet['date_emprunt'])) { ?>
-                                <p><b>Emprunter : </b><?= $objet['nom_emprunt'] ?></p>
-                                 Emprunt : <?php echo $objet['date_emprunt']; ?>
-                                    <br>
-                                <?php } ?>
-                                <?php if (!empty($objet['date_retour'])) { ?>
-                                 Retour : <?php echo $objet['date_retour']; ?>
-                                <?php } ?>
-                                <?php if (empty($objet['date_emprunt']) && empty($objet['date_retour'])) { ?>
-                                Disponible
-                                <?php } ?>
+
+
                             </p>
-                            <p><b>Categorie :</b> <?= $objet['nom_categorie'] ?> </p>
-                            <p><b>Proprietaire : </b><?= $objet['nom'] ?></p>
-                            
                         </div>
                     </article>
-                    </a>
-                </section>
-            <?php } ?>
-        </div>
-    </div>
-
+                </a>
+            </section>
+        <?php } ?>
+    </ul>
 </body>
 
 </html>

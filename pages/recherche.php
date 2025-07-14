@@ -75,7 +75,8 @@ $objets = getResearchedObjets(
         <div class="row">
             <?php foreach ($objets as $objet) { ?>
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
-                    <a href="fiche.php?id=<?= $objet['id_objet'] ?>"><article class="card border-0 shadow-sm" style="border-radius: 12px;">
+                    <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
+                        <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
                         <div class="card-body">
                             <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
                             <p class="card-text text-muted">

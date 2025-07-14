@@ -80,7 +80,7 @@ function getUserById($id)
 
 function getInfoObjetbyId($id)
 {
-    $sql = "SELECT nom_objet, nom_categorie FROM v_objet_emprunt WHERE id_objet =%d";
+    $sql = "SELECT nom_objet, nom_categorie ,id_membre ,nom FROM v_objet_emprunt WHERE id_objet =%d";
     $sql = sprintf($sql , $id);
     $result = mysqli_query(dbconnect(), $sql);
     return mysqli_fetch_assoc( $result );
@@ -129,4 +129,16 @@ function getResearchedObjets($categorie, $nom, $disponible, $offset)
         $objets[] = $row;
     }
     return $objets;
+}
+
+function getObjetmembre($id)
+{
+    $sql = "SELECT * FROM exm_objet WHERE id_membre = %d ORDER BY nom_objet ASC ";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    $objet = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $objet[] = $row;
+    }
+    return $objet;
 }

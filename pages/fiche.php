@@ -60,6 +60,7 @@ $categories = getCategories();
         </div>
     </nav>
     <h1><?= $info['nom_objet'] ?></h1>
+    <h2>Proprietaire : <a href="profil.php?id=<?= $info['id_membre'] ?>"><?= $info['nom'] ?></a></h2>
     <p>Catégorie: <?= $info['nom_categorie'] ?></p>
     <h2>Historique d'emprunt:</h2>
     <ul>
