@@ -17,6 +17,13 @@ $objets = getResearchedObjets(
     <title>Document</title>
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <style>
+.card-hover:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    transform: translateY(-6px) scale(1.03);
+    transition: all 0.2s;
+}
+</style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
