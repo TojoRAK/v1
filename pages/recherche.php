@@ -1,28 +1,23 @@
 <?php
 session_start();
 include("../inc/fonctions.php");
-$objets = getObjets();
-if (isset($_GET['moi'])) {
-    $objets = getObjetsEmprunt($_SESSION['user']);
-}
-if (isset($_GET['categorie'])) {
-    $objets = getObjetsCat($_GET['categorie']);
-}
-$categories = getCategories();
+$objets = getResearchedObjets(
+    isset($_GET['categorie']) ? $_GET['categorie'] : '',
+    isset($_GET['nom']) ? $_GET['nom'] : '',
+    isset($_GET['disponible']) ? $_GET['disponible'] : null,
+    isset($_GET['offset']) ? (int)$_GET['offset'] : 0
+);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Document</title>
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
-
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container">
             <a class="navbar-brand" href="accueil.php">
@@ -106,7 +101,6 @@ $categories = getCategories();
             <?php } ?>
         </div>
     </div>
-
 </body>
-
 </html>
+
