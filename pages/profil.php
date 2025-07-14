@@ -3,7 +3,7 @@ session_start();
 include("../inc/fonctions.php");
 $profil = getUserById($_GET['id']);
 $objets = getObjetmembre($_GET['id']);
-
+$objetsemprunte = getEmpruntbyId($_GET['id']);
 
 $objetsParCategorie = [];
 foreach ($objets as $objet) {
@@ -92,29 +92,56 @@ foreach ($objets as $objet) {
     </nav>
     <h1>Profil de : <?= $profil['nom'] ?></h1>
     <hr>
-    <h3 >Date de Naissance : <span class="text-danger"><?= $profil['date_naissance'] ?></span></h3>
-    <h3 >Ville : <span class="text-danger"><?= $profil['ville'] ?> </span></h3>
+    <h3>Date de Naissance : <span class="text-danger"><?= $profil['date_naissance'] ?></span></h3>
+    <h3>Ville : <span class="text-danger"><?= $profil['ville'] ?> </span></h3>
     <?php if ($profil['genre'] == 'M') { ?>
-        <h3 >Homme</h3>
+        <h3>Homme</h3>
     <?php } else { ?>
         <h3 class="text-danger">Femme</h3>
     <?php } ?>
-        <hr>
+    <hr>
     <?php if ($_GET['id'] == $_SESSION['user']) { ?>
         <h3>Mes objets :</h3>
     <?php } else { ?>
         <h4>Objets de <?= $profil['nom'] ?> :</h3>
-    <?php } ?>
+        <?php } ?>
 
-    <?php foreach ($objetsParCategorie as $catId => $objetsCat) { ?>
-        <hr>
-        <h4>
-            <?php
-            echo isset($objetsCat[0]['nom_categorie']) ? $objetsCat[0]['nom_categorie'] : 'Sans catégorie';
-            ?>
-        </h4>
-        <ul class="row">
-            <?php foreach ($objetsCat as $objet) { ?>
+        <?php foreach ($objetsParCategorie as $catId => $objetsCat) { ?>
+            <hr>
+            <h4>
+                <?php
+                echo isset($objetsCat[0]['nom_categorie']) ? $objetsCat[0]['nom_categorie'] : 'Sans catégorie';
+                ?>
+            </h4>
+            <ul class="row">
+                <?php foreach ($objetsCat as $objet) { ?>
+                    <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
+                        <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
+                            <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
+                                <?php if (getImage($objet['id_objet']) != null) { ?>
+                                    <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top" alt=""
+                                        style="height: 200px; object-fit: cover;">
+                                <?php } else { ?>
+                                    <img src="../assets/images/default.jpg" class="card-img-top" alt=""
+                                        style="height: 200px; object-fit: cover;">
+                                <?php } ?>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
+
+
+                                    </p>
+                                </div>
+                            </article>
+                        </a>
+                    </section>
+                <?php } ?>
+            </ul>
+        <?php } ?>
+
+        <?php foreach ($objetsemprunte as $objet) { ?>
+            <hr>
+            <h4>Mes emprunts :</h4>
+            <ul class="row">
                 <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
                     <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
                         <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
@@ -127,16 +154,18 @@ foreach ($objets as $objet) {
                             <?php } ?>
                             <div class="card-body">
                                 <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
-
-
-                                </p>
-                            </div>
-                        </article>
                     </a>
-                </section>
-            <?php } ?>
-        </ul>
-    <?php } ?>
+                    <form action="traitementretour.php" method="post">
+                        <p>Etat : <select name="etat" id="">
+                                <option value="ok">OK</option>
+                                <option value="abime">Abimé</option>
+                            </select></p>
+                            <input type="hidden" name="id_objet" value="<?= $objet['id_objet'] ?>">
+                            <input type="hidden" name="id_emprunt" value="<?= $objet['id_emprunt'] ?>">
+                            <button type="submit">Retourner</button>
+                    </form>
+                <?php } ?>
+
 </body>
 
 </html>

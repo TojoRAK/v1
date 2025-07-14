@@ -1,32 +1,21 @@
 <?php
-session_start();
 include("../inc/fonctions.php");
-$categories = getCategories();
-$objets = getResearchedObjets(
-    isset($_GET['categorie']) ? $_GET['categorie'] : '',
-    isset($_GET['nom']) ? $_GET['nom'] : '',
-    isset($_GET['disponible']) ? $_GET['disponible'] : null,
-    isset($_GET['offset']) ? (int) $_GET['offset'] : 0
-);
+$etatOK = countEtat("OK");
+$etatAbime = countEtat("Abime");
+$total = counttotalretour();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <style>
-.card-hover:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    transform: translateY(-6px) scale(1.03);
-    transition: all 0.2s;
-}
-</style>
+    
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container">
@@ -50,6 +39,12 @@ $objets = getResearchedObjets(
                     <li class="nav-item">
                         <a class="nav-link <?= isset($_GET['moi']) ? 'active' : '' ?>" href="accueil.php?moi=1">
                             Mes emprunts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= isset($_GET['profil']) ? 'active' : '' ?>"
+                            href="profil.php?id=<?= $_SESSION['user'] ?>">
+                            Mon Profil
                         </a>
                     </li>
                     <li class="nav-item">
@@ -82,48 +77,13 @@ $objets = getResearchedObjets(
                     </button>
                 </form>
                 <a href="deco.php" class="btn btn-primary">Deconnexion</a>
+                <a href="addObjet.php" class="btn btn-primary">Ajouter un objet</a>
+
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h3 class="mt-4">Bienvenue : <span class="text-danger"><?= getUserById($_SESSION['user'])['nom'] ?></span></h3>
-        <div class="row">
-            <?php foreach ($objets as $objet) { ?>
-                <section class="col-lg-3 col-md-6 col-sm-12 mt-5">
-                    <a class="text-decoration-none" href="fiche.php?id=<?= $objet['id_objet'] ?>">
-                        <article class="card card-hover border-0 shadow-sm" style="border-radius: 12px;">
-                            <?php if (getImage($objet['id_objet']) != null) { ?>
-                                <img src="../uploads/pubs/<?= getImage($objet['id_objet']) ?>" class="card-img-top" alt=""
-                                    style="height: 200px; object-fit: cover;">
-                            <?php } else { ?>
-                                <img src="../assets/images/default.jpg" class="card-img-top" alt=""
-                                    style="height: 200px; object-fit: cover;">
-                            <?php } ?>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold"><?php echo $objet['nom_objet']; ?></h5>
-                                <p class="card-text text-muted">
-                                    <?php if (!empty($objet['date_emprunt'])) { ?>
-                                    <p><b>Emprunter : </b><?= $objet['nom_emprunt'] ?></p>
-                                    Emprunt : <?php echo $objet['date_emprunt']; ?>
-                                    <br>
-                                <?php } ?>
-                                <?php if (!empty($objet['date_retour'])) { ?>
-                                    Retour : <?php echo $objet['date_retour']; ?>
-                                <?php } ?>
-                                <?php if (empty($objet['date_emprunt']) && empty($objet['date_retour'])) { ?>
-                                    Disponible
-                                <?php } ?>
-                                </p>
-                                <p><b>Categorie :</b> <?= $objet['nom_categorie'] ?> </p>
-                                <p><b>Proprietaire : </b><?= $objet['nom'] ?></p>
-
-                            </div>
-                        </article>
-                    </a>
-                </section>
-            <?php } ?>
-        </div>
-    </div>
+    <h1>OK : <?= $etatOK ?></h1>
+    <h1>Abime : <?= $etatAbime ?></h1>
+    <h1>Total : <?= $total ?></h1>
 </body>
-
 </html>

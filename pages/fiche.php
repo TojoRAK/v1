@@ -43,6 +43,12 @@ ini_set('display_errors', '1');
                             Mes emprunts
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="total.php">
+                            Total des objets retournes
+                        </a>
+
+                    </li>
                 </ul>
 
                 <form class="d-flex" action="accueil.php" method="get">

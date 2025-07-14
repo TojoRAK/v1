@@ -60,6 +60,12 @@ $categories = getCategories();
                             Mon Profil
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="total.php">
+                            Total des objets retournes
+                        </a>
+
+                    </li>
                 </ul>
 
                 <form class="d-flex align-items-center gap-2" action="recherche.php" method="get">

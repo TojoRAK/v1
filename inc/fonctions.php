@@ -1,11 +1,11 @@
 <?php
 require("connexion.php");
 ini_set("display_errors", 1);
-function signin($email, $mdp, $nom, $dateNaissance, $genre, $ville, $image)
+function signin($email, $mdp, $nom, $dateNaissance, $genre, $ville)
 {
 
-    $sql = "INSERT INTO exm_membre (nom , date_naissance ,genre ,email,ville,mdp,image_profil) VALUES ('%s' , '%s' , '%s' , '%s', '%s', '%s', '%s');";
-    $sql = sprintf($sql, $nom, $dateNaissance, $genre, $email, $ville, $mdp, $image);
+    $sql = "INSERT INTO exm_membre (nom , date_naissance ,genre ,email,ville,mdp) VALUES ('%s' , '%s' , '%s' , '%s', '%s', '%s');";
+    $sql = sprintf($sql, $nom, $dateNaissance, $genre, $email, $ville, $mdp);
     $requete = mysqli_query(dbconnect(), $sql);
 }
 function loginUser($email, $mdp)
@@ -201,4 +201,53 @@ function addEmprunt($idObj, $idMembre, $dureeJours)
     $result = mysqli_query(dbconnect(), $sql);
     
     return $result;
+}
+
+function getEmpruntbyId($id)
+{
+    $sql = "SELECT * FROM v_objet_emprunt WHERE id_mpindrana = %d";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    $emprunt = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $emprunt[] = $row;
+    }
+    return $emprunt;
+}
+
+function supprimerEmprunt($id)
+{
+    $sql = "DELETE FROM exm_emprunt WHERE id_emprunt = %d";
+    $sql = sprintf($sql, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+}
+
+function ajouterRetour($idobjet, $etat, $idmembre)
+{
+    $sql = "INSERT INTO exm_objet_retourner (id_objet, etat, id_membre_mamerina) VALUES (%d, '%s', %d)";
+    $sql = sprintf($sql, $idobjet, $etat, $idmembre);
+    $requete = mysqli_query(dbconnect(), $sql);
+}
+
+function countEtat($etat)
+{
+    $sql = "SELECT COUNT(*) as total FROM exm_objet_retourner WHERE etat = '%s'";
+    $sql = sprintf($sql, $etat);
+    $result = mysqli_query(dbconnect(), $sql);
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        return $row['total'];
+    }
+    return 0;
+}
+
+function counttotalretour()
+{
+    $sql = "SELECT COUNT(*) as total FROM exm_objet_retourner";
+    $result = mysqli_query(dbconnect(), $sql);
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        return $row['total'];
+    }
+    return 0;
 }

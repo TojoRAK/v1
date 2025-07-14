@@ -144,5 +144,12 @@ LEFT JOIN exm_categorie_objet ON exm_categorie_objet.id_categorie = v_exm_objet_
 LEFT JOIN exm_membre on exm_membre.id_membre = exm_emprunt.id_membre;
 
 
-
-    
+CREATE OR REPLACE TABLE exm_objet_retourner
+(
+    id_retour INT AUTO_INCREMENT PRIMARY KEY,
+    id_membre_mamerina INT,
+    id_objet INT,
+    etat varchar(10),
+    FOREIGN KEY (id_objet) REFERENCES exm_objet(id_objet) ON DELETE CASCADE,
+    FOREIGN KEY (id_membre_mamerina) REFERENCES exm_membre(id_membre) ON DELETE CASCADE
+);
