@@ -177,7 +177,7 @@ function getResearchedObjets($categorie, $nom, $disponible, $offset)
 
 function getObjetmembre($id)
 {
-    $sql = "SELECT * FROM exm_objet WHERE id_membre = %d ORDER BY nom_objet ASC ";
+    $sql = "SELECT exm_objet.*, exm_categorie_objet.nom_categorie FROM exm_objet JOIN exm_categorie_objet ON exm_objet.id_categorie = exm_categorie_objet.id_categorie WHERE id_membre = %d ORDER BY nom_objet ASC ";
     $sql = sprintf($sql, $id);
     $result = mysqli_query(dbconnect(), $sql);
     $objet = array();
@@ -185,4 +185,4 @@ function getObjetmembre($id)
         $objet[] = $row;
     }
     return $objet;
-}
+}   
